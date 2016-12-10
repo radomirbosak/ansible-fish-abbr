@@ -1,9 +1,18 @@
 #!/usr/bin/python3
 
-from subprocess import run, PIPE
+from subprocess import PIPE, check_output
 
 from ansible.module_utils.basic import AnsibleModule
 
+
+def cmd(args):
+	return check_output(args, universal_newlines=True)
+
+def cmd_fish(command):
+	return cmd(['fish', '-c'] + [command])
+
+def list_abbreviations():
+	return cmd_fish('abbr -l').splitlines()
 
 def main():
 	module = AnsibleModule(
@@ -14,15 +23,14 @@ def main():
 		)
 	)
 
-	p = run(['fish', '-c', 'abbr -l'],
-			stdout=PIPE,
-			universal_newlines=True)
-	abbrs = p.stdout.splitlines()
+	abbrs = list_abbreviations()
+
+	name, value, state = [module.params[prop]
+		for prop in ['name', 'value', 'state']]
 
 	changed = module.params['name'] in abbrs
-	out = p.stdout
 
-	module.exit_json(changed=changed, something_else=12345, fishout=out)
+	module.exit_json(changed=changed, something_else=12345)
 
 
 if __name__ == '__main__':
