@@ -5,7 +5,7 @@ Work in progress
 ## Usage
 In the command line:
 ```bash
-ansible -m fish_abbr -a 'name="gs" value="git status" state=present'
+ansible -m fish_abbr -a 'name="gs" value="git status" state=present' all
 ```
 
 In a playbook:
@@ -13,13 +13,14 @@ In a playbook:
 ---
 - hosts: all
   tasks:
-  - name: abbreviation for git status
-    fish_abbr:
-      name: gs
-      value: git status 
+  - name: create abbreviation for git status
+    fish_abbr: name=gs value="git status"
+
+  - name: make sure the gs abbreviation is not present
+    fish_abbr: name=gs state=absent
 ```
 
 You can:
 
-* [ ] add abbreviation
-* [ ] remove abbreviation
+* [x] add abbreviation
+* [x] remove abbreviation
