@@ -77,10 +77,13 @@ def main():
     name, value, state = [module.params[prop]
         for prop in ['name', 'value', 'state']]
 
-    if state == 'absent':
-        changed = remove_abbreviation(name, value)
-    elif state == 'present':
-        changed = add_abbreviation(name, value)
+    try:
+        if state == 'absent':
+            changed = remove_abbreviation(name, value)
+        elif state == 'present':
+            changed = add_abbreviation(name, value)
+    except Exception as er:
+        module.fail_json(msg=str(er))
 
     module.exit_json(changed=changed)
 
