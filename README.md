@@ -14,9 +14,9 @@ In a playbook:
 - hosts: all
   tasks:
   - name: abbreviation for git status
-  	fish_abbr:
-  	  name: gs
-  	  value: git status 
+    fish_abbr:
+      name: gs
+      value: git status 
 ```
 
 You can:
