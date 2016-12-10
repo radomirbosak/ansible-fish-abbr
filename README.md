@@ -18,3 +18,8 @@ In a playbook:
   	  name: gs
   	  value: git status 
 ```
+
+You can:
+
+* [ ] add abbreviation
+* [ ] remove abbreviation
