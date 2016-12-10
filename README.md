@@ -1,7 +1,5 @@
 # Ansible module for manipulating fish shell abbreviations
 
-Work in progress
-
 ## Usage
 In the command line:
 ```bash
