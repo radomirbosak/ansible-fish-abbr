@@ -19,9 +19,13 @@ def list_abbreviations():
 
 def check_name(name):
     if name is None:
-        raise Exception('Name cannot be None/null')
+        raise Exception('Name cannot be None.')
     if ' ' in name:
-        raise Exception('Name cannot contain spaces')
+        raise Exception('Name cannot contain spaces.')
+
+def check_value(value):
+    if value is None:
+        raise Exception('Value cannot be None.')
 
 def remove_abbreviation(name, value=None):
     # check if the name is valid
@@ -47,6 +51,7 @@ def remove_abbreviation(name, value=None):
 def add_abbreviation(name, value):
     # check if the name is valid
     check_name(name)
+    check_value(value)
 
     # fetch abbreviation dictionary
     abbrs = list_abbreviations()
@@ -71,8 +76,6 @@ def main():
 
     name, value, state = [module.params[prop]
         for prop in ['name', 'value', 'state']]
-
-    abbrs = list_abbreviations()
 
     if state == 'absent':
         changed = remove_abbreviation(name, value)
